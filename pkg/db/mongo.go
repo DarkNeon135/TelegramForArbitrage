@@ -1,7 +1,7 @@
 package db
 
 import (
-	"TelegramMessagesSender/pkg/common"
+	"TelegramForArbitrage/pkg/common"
 	"context"
 	"fmt"
 	"github.com/posipaka-trade/posipaka-trade-cmn/log"
@@ -67,7 +67,7 @@ func (connector *MongoConnector) Insert(chatId int64) error {
 		return fmt.Errorf("mongo db inserting error. Error: %s", err)
 	}
 
-	log.Info.Printf("Successfully inserted %d to arbitrageCollection %s.\n", chatId, arbitrageCollection)
+	log.Info.Printf("Successfully inserted %d to %s!\n", chatId, arbitrageCollection)
 	return nil
 }
 
