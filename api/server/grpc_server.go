@@ -21,7 +21,7 @@ func (m *MessageSender) SendMessageToTelegram(ctx context.Context, req *message.
 		return &message.MessageResponse{ResponseMessage: err.Error()}, err
 	}
 
-	return &message.MessageResponse{ResponseMessage: "Message successfully sent!"}, nil
+	return &message.MessageResponse{ResponseMessage: "Message successfully sent to Telegram!"}, nil
 }
 func StartGrpcServer(ipAddress string, telegramApi *telegram.Telegram) error {
 	lis, err := net.Listen("tcp", fmt.Sprintf("%s:%d", ipAddress, 9000))

@@ -43,7 +43,7 @@ func ConnectToMongoDB(dbUri string) (*MongoConnector, error) {
 	if err = connector.client.Ping(context.TODO(), nil); err != nil {
 		return nil, err
 	}
-	log.Info.Println("Successfully connected to MongoDB")
+	log.Info.Println("Successfully connected to MongoDB!")
 
 	return connector, nil
 }
@@ -57,7 +57,7 @@ func (connector *MongoConnector) Disconnect() error {
 		return fmt.Errorf("db disconnecting error. Error: %s", err)
 	}
 
-	log.Info.Printf("Successfully disconnected from %s database!\n", database)
+	log.Info.Printf("Successfully disconnected from database: %s!\n", database)
 	return nil
 }
 
@@ -98,7 +98,7 @@ func (connector *MongoConnector) GetChatIdList() ([]int64, error) {
 	}
 	defer cursor.Close(context.TODO())
 
-	log.Info.Printf("Successfully retrieved %s arbitrageCollection info!\n", arbitrageCollection)
+	log.Info.Printf("Successfully retrieved info from collection: %s!\n", arbitrageCollection)
 
 	return searchResult, nil
 }
