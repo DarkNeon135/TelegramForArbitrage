@@ -14,6 +14,7 @@ func main() {
 	var err error
 
 	telegramApiToken := os.Getenv("TELEGRAMAPITOKEN")
+	ipAddress := os.Getenv("IP")
 
 	telegramApi.BotApi, err = telegram.ConnectToTelegram(telegramApiToken)
 	if err != nil {
@@ -27,7 +28,7 @@ func main() {
 
 	go telegramApi.CheckUsersStatus()
 
-	if err = server.StartGrpcServer(telegramApi); err != nil {
+	if err = server.StartGrpcServer(ipAddress, telegramApi); err != nil {
 		log.Error.Fatal(err)
 	}
 
