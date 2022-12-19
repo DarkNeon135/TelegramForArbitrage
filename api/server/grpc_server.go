@@ -23,7 +23,7 @@ func (m *MessageSender) SendMessageToTelegram(ctx context.Context, req *message.
 
 	return &message.MessageResponse{ResponseMessage: "Message successfully sent to Telegram!"}, nil
 }
-func StartGrpcServer(ipAddress string, telegramApi *telegram.Telegram) error {
+func StartGrpcServer(ipAddress net.IP, telegramApi *telegram.Telegram) error {
 	lis, err := net.Listen("tcp", fmt.Sprintf("%s:%d", ipAddress, 9000))
 	if err != nil {
 		return fmt.Errorf("network listener error. Error: %s", err)

@@ -2,6 +2,7 @@ package main
 
 import (
 	"TelegramForArbitrage/api/server"
+	"TelegramForArbitrage/internal/ip"
 	"TelegramForArbitrage/pkg/db"
 	"TelegramForArbitrage/pkg/telegram"
 	"github.com/posipaka-trade/posipaka-trade-cmn/log"
@@ -14,7 +15,11 @@ func main() {
 	var err error
 
 	telegramApiToken := os.Getenv("TELEGRAMAPITOKEN")
-	ipAddress := os.Getenv("IP")
+
+	localAddress, err := ip.GetLocalAddress()
+	if err != nil {
+		log.Error.Fatal(err)
+	}
 
 	telegramApi.BotApi, err = telegram.ConnectToTelegram(telegramApiToken)
 	if err != nil {
@@ -28,7 +33,7 @@ func main() {
 
 	go telegramApi.CheckUsersStatus()
 
-	if err = server.StartGrpcServer(ipAddress, telegramApi); err != nil {
+	if err = server.StartGrpcServer(localAddress, telegramApi); err != nil {
 		log.Error.Fatal(err)
 	}
 
