@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package tMessage;
+
+option go_package = "api/proto/telegram_message;tMessage";
+
+service TelegramMessageSender{
+  rpc SendMessageToTelegram(MessageRequest) returns (MessageResponse){}
+}
+
+message MessageRequest{
+  string message = 1;
+}
+
+message MessageResponse{
+  string responseMessage = 1;
+}

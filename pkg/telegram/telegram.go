@@ -1,7 +1,7 @@
 package telegram
 
 import (
-	"TelegramMessagesSender/pkg/db"
+	"TelegramForArbitrage/pkg/db"
 	"fmt"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/posipaka-trade/posipaka-trade-cmn/log"
@@ -67,18 +67,16 @@ func (telegram *Telegram) CheckUsersStatus() {
 	}
 }
 
-func (telegram *Telegram) SendMessagesToChannel(message string) string {
+func (telegram *Telegram) SendMessagesToChannel(message string) error {
 	chatIdList, err := telegram.MongoConnector.GetChatIdList()
 	if err != nil {
-		log.Error.Println(err)
-		return err.Error()
+		return err
 	}
 	for _, chatId := range chatIdList {
 		msg := tgbotapi.NewMessage(chatId, message)
 		if _, err = telegram.BotApi.Send(msg); err != nil {
-			log.Error.Println(err)
-			return err.Error()
+			return fmt.Errorf("sending message to telegram channel error. Error: %s", err)
 		}
 	}
-	return ""
+	return nil
 }
